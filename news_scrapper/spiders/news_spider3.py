@@ -1,5 +1,8 @@
 import scrapy
-
+import scrapy.crawler as crawler
+from scrapy.utils.log import configure_logging
+from multiprocessing import Process, Queue
+from twisted.internet import reactor
 
 class NewsSpider3Spider(scrapy.Spider):
     name = 'news_spider3'
@@ -31,6 +34,26 @@ class NewsSpider3Spider(scrapy.Spider):
 
 
 from scrapy.crawler import CrawlerProcess
+
+def run_spider(spider):
+    def f(q):
+        try:
+            runner = crawler.CrawlerRunner()
+            deferred = runner.crawl(spider)
+            deferred.addBoth(lambda _: reactor.stop())
+            reactor.run()
+            q.put(None)
+        except Exception as e:
+            q.put(e)
+
+    q = Queue()
+    p = Process(target=f, args=(q,))
+    p.start()
+    result = q.get()
+    p.join()
+
+    # if result is not None:
+    #     raise result
 
 status = CrawlerProcess({
     'USER_AGENT' : 'Mozilla/5.0',
