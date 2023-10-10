@@ -1,0 +1,57 @@
+
+Website URL: "https://en.bitcoinsistemi.com/"
+Website Name: "bitcoinsistemi"
+All Articles: 
+Article URL: response.css("h3 a::attr(href)").get()
+
+#--------------------------------------------------
+Website URL: "https://www.theblock.co/latest"
+Website Name: "The Block"
+articles = response.css("article.articleCard.collectionLatest")
+article_relative_url = article.css("div.headline a::attr(href)").get()
+article_url = "https://www.theblock.co/latest" + article_relative_url
+# inside article page
+title = response.css("article.articleBody h1::text").get()
+author = response.css(".articleByline > label:nth-child(1) > a:nth-child(1)::text").get()
+date = response.css("div.timestamp.tbcoTimestamp::text").get()
+thumb = response.css(".articleFeatureImage img::attr(src)").get()
+excerpt = response.css("div.articleContent span p").get()
+
+
+#-------------------------------------------------
+Website URL: "https://coinedition.com/news/"
+Website Name: "Coin Edition"
+articles = response.css(".ce-catag-leftblock-container .ce-catag-leftblock-each")
+article_relative_url = Not required
+article_url = article.css("div.ce-catag-leftblock-each:nth-child(1) > div:nth-child(1) > a:nth-child(1)::attr(href)").get()
+# inside article page
+title = article.css("div.ce-catag-leftblock-each:nth-child(1) > div:nth-child(1) > a:nth-child(1)::attr(title)").get()
+author =article.css("span.ce-post-author-name a::text").get()
+date = article.css("span.ce-post-date time::text").get()
+thumb = article.css("div.ce-catag-leftblock-each:nth-child(1) > div:nth-child(1) > a:nth-child(1) > img:nth-child(1)::attr(data-lazy-src)").get()
+excerpt = article.css("div.ce-post-excerpt p::text").get()
+
+#---------------------------------------------------
+Website URL: "U Today"
+Website Name: "https://u.today/latest-cryptocurrency-news"
+articles = response.css("div.category-item")
+article_url = article.css("div.category-item a.category-item__img-wrapper::attr(href)").get()
+title = article.css("div.category-item__title::text").get()
+author = article.css("a.humble.humble--author::text").get()
+date = article.css("div.humble.humble--time::text").get()
+thumb_relative_url = article.css("img.category-item__img::attr(src)").get()
+thumb = "https://u.today" + thumb_relative_url
+# inside article url
+excerpt = response.css("div.article__content p").get() # html
+
+#--------------------------------------------------
+Website URL: "NEWSBTC"
+Website Name: "https://www.newsbtc.com/news/"
+articles = response.css("article.jeg_post.jeg_pl_md_2.format-standard")
+article_url = article.css("div.jeg_thumb a::attr(href)").get()
+title = article.css("h3.jeg_post_title a::text").get()
+author = article.css("div.jeg_meta_author a::text").get()
+date = article.css("div.jeg_meta_date a::text").get()
+thumb = article.css("img.attachment-jnews-350x250::attr(data-src)").get()
+excerpt = article.css("div.jeg_post_excerpt p::text").get()
+
