@@ -22,8 +22,8 @@ class NewsSpider5Spider(scrapy.Spider):
 
         yield{
             "title": response.css("div.article h1::text").get(),
-            "author": response.css("a.article__lead-name::text").get(),
-            "date": response.css("div.time::text").get(),
+            "author": response.css("div.article__author-name::text").get(),
+            "date": response.xpath("/html/body/div[3]/div/main/div/div[1]/div/div[4]/div[1]/div/div[2]/text()").get(),
             "thumb": response.css("img.article__main-img::attr(src)").get(),
             "excerpt": response.css("div.article__content p").get(),
             "article_url": "http://u.today/" + response.css("div.article h1::attr(data-url)").get(),   

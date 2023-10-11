@@ -1,7 +1,6 @@
 itemadapter==0.4.0
 pandas==2.0.3
-pyOpenSSL==21.0.0
-pyOpenSSL==23.2.0
-Scrapy==2.5.1
+pyOpenSSL
+Scrapy
 streamlit==1.27.2
 Twisted==22.1.0
