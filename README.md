@@ -55,7 +55,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot](https://github.com/NiravJoshi33/news_crunch/blob/main/app_screenshot.png)]
+![Product Name Screen Shot](https://github.com/NiravJoshi33/news_crunch/blob/main/app_screenshot.png)
 
 This is an app that scrapes news article details such as title, date, auther etc. from different news websites, processes the data and shows on a single page. 
 
@@ -67,7 +67,7 @@ This app is inspired by [inshorts](https://m.inshorts.com/en/read)
 
 ### Built With
 
-* [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
+[![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -123,15 +123,26 @@ Follow the below instructions to run the project
     ```
   news_spider6.py
   ```
-**Known Issue:** Don't worry if `news_spider3.py` gives an error. The website sometimes blocks spider from running. The app can run without this script working.
+  **Known Issue:** Don't worry if `news_spider3.py` gives an error. The website sometimes blocks spider from running. The app can run without this script working.
+* Navigate to project folder and run the main script
+  ```
+  main.py
+  ```
+* After the script has run, browser should open and display a GUI. In case, this browser doesn't open, open it manually and open following url
+  ```
+  http://localhost:8501
+  ```
+* By default, a side bar will load with the page. From there, you can deselect any website you don't want to see news from and use the slider to select the number of articles to show.
 
 <!-- ROADMAP -->
-## Roadmap
+## To Do
 
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
+- [ ] Resolve Major Bugs with the current Basic Version
+  - [ ] Run the app with the single script
+  - [ ] OpenSSL Error occuring sometimes
+  - [ ] Clean Data before showing in GUI
+    - [ ] Dates from all websites in same format
+  - [ ] Inconsistent card size due to different size of thumbs and excerpts
 
 See the [open issues](https://github.com/NiravJoshi33/news_crunch/issues) for a full list of proposed features (and known issues).
 
@@ -155,22 +166,11 @@ Don't forget to give the project a star! Thanks again!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
-<!-- LICENSE -->
-## License
-
-Distributed under the MIT License. See `LICENSE.txt` for more information.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
-
+Your Name - Nirav Joshi \
+Email - niravjoshi3000@gmail.com \
 Project Link: [https://github.com/NiravJoshi33/news_crunch](https://github.com/NiravJoshi33/news_crunch)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -180,9 +180,10 @@ Project Link: [https://github.com/NiravJoshi33/news_crunch](https://github.com/N
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-* []()
-* []()
-* []()
+* [Scrapy Course - Python Web Scraping for Beginners](https://www.youtube.com/watch?v=mBoX_JCKZTE&pp=ygUNc2NyYXB5IGNvdXJzZQ%3D%3D) by freecodecamp.org
+* [Python Streamlit Full Course](https://www.youtube.com/watch?v=RjiqbTLW9_E&list=PLa6CNrvKM5QU7AjAS90zCMIwi9RTFNIIW)
+* [Best-README-Template](https://github.com/othneildrew/Best-README-Template) by [Othneil Drew](https://github.com/othneildrew)
+* Awesome community on [stackoverflow](https://stackoverflow.com/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
