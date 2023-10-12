@@ -7,6 +7,8 @@ st.set_page_config(layout="wide")
 st.image("nc_short_logo.png", width= 90)
 st.title("News Crunch - Crypto News")
 
+# --------------------------------------------------
+# Side Bar Setup
 st.sidebar.image("nc_long_logo.png", width=280)
 st.sidebar.subheader("Select the websites you want to see news from:")
 the_daily_hodl = st.sidebar.checkbox("The Daily Hodl",key=1,value=True)
@@ -43,11 +45,13 @@ news_data = pd.read_csv("final_news_data.csv")
 
 num_pages = st.sidebar.slider("Select Number of Articles:", 5, 10, len(news_data))
 
+# -----------------------------------------
+# Main Page Display
 for i in range(num_pages):
     if news_data['title'][i] == 'title':
         pass
     elif "https" not in news_data['thumb'][i]:
-        print("Invalid url from webpage, skipping this item")
+        print("Invalid url from webpage, skipping this item") #Skipping bad data due inconsistent page structure of websites
         pass
     else:
         col1, col2 = st.columns([0.35,0.65])

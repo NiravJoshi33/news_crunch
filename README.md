@@ -104,6 +104,11 @@ After the above dependecies are installed, follow below instructions:
 
 Follow the below instructions to run the project
 
+* Run following script
+  ```
+  delete_at_start.py
+  ```
+  This file deletes existing row data files so that new files can be generated with the spider.
 * Navigate to the path `news_scrapper/spiders` and run following scrips one by one. (Ideally all these should be run by a single script but due to inherrent behavior of the scrapy's twisted engine, one it is started for one process, it stops another process from starting. I am working on it to resolve this.)
   ```
   news_spider1.py
@@ -124,6 +129,8 @@ Follow the below instructions to run the project
   news_spider6.py
   ```
   **Known Issue:** Don't worry if `news_spider3.py` gives an error. The website sometimes blocks spider from running. The app can run without this script working.
+
+* In case for some reason, spiders fail to generate the files, an old backup of these files is stored inside the folder `backup_data_files`. Copy these files to the project folder.
 * Navigate to project folder and run the main script
   ```
   main.py
