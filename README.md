@@ -37,14 +37,12 @@
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
+        <li><a href="###prerequisites & Installation">Prerequisites & Installation</a></li>
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#To Do">To Do</a></li>
     <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
@@ -106,36 +104,9 @@ Follow the below instructions to run the project
 
 * Run following script
   ```
-  delete_at_start.py
-  ```
-  This file deletes existing row data files so that new files can be generated with the spider.
-* Navigate to the path `news_scrapper/spiders` and run following scrips one by one. (Ideally all these should be run by a single script but due to inherrent behavior of the scrapy's twisted engine, one it is started for one process, it stops another process from starting. I am working on it to resolve this.)
-  ```
-  news_spider1.py
-  ```
-  ```
-  news_spider2.py
-  ```
-    ```
-  news_spider3.py
-  ```
-    ```
-  news_spider4.py
-  ```
-    ```
-  news_spider5.py
-  ```
-    ```
-  news_spider6.py
-  ```
-  **Known Issue:** Don't worry if `news_spider3.py` gives an error. The website sometimes blocks spider from running. The app can run without this script working.
-
-* In case for some reason, spiders fail to generate the files, an old backup of these files is stored inside the folder `backup_data_files`. Copy these files to the project folder.
-* Navigate to project folder and run the main script
-  ```
   main.py
   ```
-* After the script has run, browser should open and display a GUI. In case, this browser doesn't open, open it manually and open following url
+* After the script has run, browser should open and display a GUI. In case, it doesn't open, open it manually and open following url
   ```
   http://localhost:8501
   ```
@@ -191,6 +162,7 @@ Project Link: [https://github.com/NiravJoshi33/news_crunch](https://github.com/N
 * [Python Streamlit Full Course](https://www.youtube.com/watch?v=RjiqbTLW9_E&list=PLa6CNrvKM5QU7AjAS90zCMIwi9RTFNIIW)
 * [Best-README-Template](https://github.com/othneildrew/Best-README-Template) by [Othneil Drew](https://github.com/othneildrew)
 * Awesome community on [stackoverflow](https://stackoverflow.com/)
+* [ChatGPT](https://chat.openai.com/) by [OpenAI](https://openai.com/) for some Debugging
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

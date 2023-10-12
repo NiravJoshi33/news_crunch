@@ -1,5 +1,14 @@
 files = ["coinedition.csv","thedailyhodl.csv", "finbold.csv", "newsbtc.csv"]
 
+# Delete previous files
+import os
+from os.path import exists
+
+def delete_files():
+    for file in files:
+        if exists(file):
+            os.remove(file)
+
 # Run Spiders
 from news_scrapper.spiders.all_news_spider import run_all_spiders
 run_all_spiders()
