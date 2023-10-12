@@ -55,9 +55,11 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Product Name Screen Shot](https://github.com/NiravJoshi33/news_crunch/blob/main/app_screenshot.png)]
 
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `NiravJoshi33`, `news_crunch`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `News Crunch`, `project_description`
+This is an app that scrapes news article details such as title, date, auther etc. from different news websites, processes the data and shows on a single page. 
+
+This app is inspired by [inshorts](https://m.inshorts.com/en/read)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -65,14 +67,8 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 
 ### Built With
 
-* [![Next][Next.js]][Next-url]
-* [![React][React.js]][React-url]
-* [![Vue][Vue.js]][Vue-url]
-* [![Angular][Angular.io]][Angular-url]
-* [![Svelte][Svelte.dev]][Svelte-url]
-* [![Laravel][Laravel.com]][Laravel-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![JQuery][JQuery.com]][JQuery-url]
+* [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -81,47 +77,53 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
 
-### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+### Prerequisites & Installation
 
-### Installation
+Before starting, please make sure that following dependencies are installed on your machine
+* [Python](https://www.python.org/downloads/)
+* [pip](https://pypi.org/project/pip/)
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+After the above dependecies are installed, follow below instructions:
+* Clone the repo
+  Clone the repo
    ```sh
    git clone https://github.com/NiravJoshi33/news_crunch.git
    ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
+* Navigate to the project folder using CLI
+* Install other dependecies with following command
+  ````
+  pip install -r requirements.txt
+  ````
+  Wait for the packages to be installed.
 
 
 <!-- USAGE EXAMPLES -->
-## Usage
+## How to Use
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+Follow the below instructions to run the project
 
-_For more examples, please refer to the [Documentation](https://example.com)_
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
+* Navigate to the path `news_scrapper/spiders` and run following scrips one by one. (Ideally all these should be run by a single script but due to inherrent behavior of the scrapy's twisted engine, one it is started for one process, it stops another process from starting. I am working on it to resolve this.)
+  ```
+  news_spider1.py
+  ```
+  ```
+  news_spider2.py
+  ```
+    ```
+  news_spider3.py
+  ```
+    ```
+  news_spider4.py
+  ```
+    ```
+  news_spider5.py
+  ```
+    ```
+  news_spider6.py
+  ```
+**Known Issue:** Don't worry if `news_spider3.py` gives an error. The website sometimes blocks spider from running. The app can run without this script working.
 
 <!-- ROADMAP -->
 ## Roadmap
