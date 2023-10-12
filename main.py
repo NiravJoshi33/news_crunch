@@ -1,7 +1,8 @@
-files = ["coinedition.csv","thedailyhold.csv", "finbold.csv", "utoday.csv", "newsbtc.csv"]
+files = ["coinedition.csv","thedailyhodl.csv", "finbold.csv", "newsbtc.csv"]
 
 # Run Spiders
-# import news_scrapper.spiders.all_news_spider
+from news_scrapper.spiders.all_news_spider import run_all_spiders
+run_all_spiders()
 
 # Data Cleaning
 from data_processing import process_date

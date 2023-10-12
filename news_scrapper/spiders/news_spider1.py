@@ -52,5 +52,5 @@ status = CrawlerProcess({
 })
 
 status.crawl(NewsSpider1Spider)
+status.crawl()
 status.start()
-status.stop()

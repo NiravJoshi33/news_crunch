@@ -1,13 +1,19 @@
 import scrapy
-import scrapy.crawler as crawler
+from scrapy.crawler import CrawlerRunner, CrawlerProcess
 from scrapy.utils.log import configure_logging
 from multiprocessing import Process, Queue
-from twisted.internet import reactor
+from twisted.internet import reactor, defer
+from scrapy.utils.project import get_project_settings
+
 
 class NewsSpider1Spider(scrapy.Spider):
     name = 'all_news_spider'
     allowed_domains = ['dailyhodl.com/']
     start_urls = ['https://dailyhodl.com/']
+
+    custom_settings = {
+        'FEEDS': { 'thedailyhodl.csv': { 'format': 'csv',}}
+        }
 
     def parse(self, response):
         articles = response.css("article.jeg_post.jeg_pl_lg_2.format-standard")
@@ -28,6 +34,10 @@ class NewsSpider2Spider(scrapy.Spider):
     allowed_domains = ['finbold.com']
     start_urls = ['https://finbold.com/category/cryptocurrency-news/']
 
+    custom_settings = {
+        'FEEDS': { 'finbold.csv': { 'format': 'csv',}}
+        }
+
     def parse(self, response):
         articles = response.css("div.flex.gap-x-4")
         relative_url = response.css("a.relative[aria-label='pagination.next']::attr(href)").get()
@@ -38,10 +48,10 @@ class NewsSpider2Spider(scrapy.Spider):
             article_url = article.css("h3 a").attrib["href"]
             yield response.follow(article_url, callback = self.parse_article_page)
 
-        if relative_url is not None:
-            next_page = "https://finbold.com" + relative_url
-            print(f"\n\n{next_page}\n\n")
-        yield response.follow(next_page, callback = self.parse)
+        # if relative_url is not None:
+        #     next_page = "https://finbold.com" + relative_url
+        #     print(f"\n\n{next_page}\n\n")
+        # yield response.follow(next_page, callback = self.parse)
 
 
     def parse_article_page(self, response):
@@ -61,6 +71,10 @@ class NewsSpider4Spider(scrapy.Spider):
     name = 'news_spider4'
     allowed_domains = ['coinedition.com']
     start_urls = ['http://coinedition.com/news/']
+
+    custom_settings = {
+        'FEEDS': { 'coinedition.csv': { 'format': 'csv',}}
+        }
 
     def parse(self, response):
         articles = response.css(".ce-catag-leftblock-container .ce-catag-leftblock-each")
@@ -88,6 +102,10 @@ class NewsSpider5Spider(scrapy.Spider):
     allowed_domains = ['u.today']
     start_urls = ['http://u.today/latest-cryptocurrency-news/']
 
+    custom_settings = {
+        'FEEDS': { 'utoday.csv': { 'format': 'csv',}}
+        }
+
     def parse(self, response):
         articles = response.css("div.category-item")
 
@@ -114,6 +132,10 @@ class NewsSpider6Spider(scrapy.Spider):
     allowed_domains = ['newsbtc.com']
     start_urls = ['https://www.newsbtc.com/news//']
 
+    custom_settings = {
+        'FEEDS': { 'newsbtc.csv': { 'format': 'csv',}}
+        }
+
     def parse(self, response):
         articles = response.css("article.jeg_post.jeg_pl_md_2.format-standard")
 
@@ -128,63 +150,25 @@ class NewsSpider6Spider(scrapy.Spider):
                 "website_name": "NEWSBTC"
             }
 
-from scrapy.crawler import CrawlerProcess
+spider1_instance = NewsSpider1Spider
+spider2_instance = NewsSpider2Spider
+spider4_instance = NewsSpider4Spider
+spider5_instance = NewsSpider5Spider
+spider6_instance = NewsSpider6Spider
 
-def run_spider(spider):
-    def f(q):
-        try:
-            runner = crawler.CrawlerRunner()
-            deferred = runner.crawl(spider)
-            deferred.addBoth(lambda _: reactor.stop())
-            reactor.run()
-            q.put(None)
-        except Exception as e:
-            q.put(e)
+process = CrawlerProcess()
 
-    q = Queue()
-    p = Process(target=f, args=(q,))
-    p.start()
-    result = q.get()
-    p.join()
+FEEDS = {
+    'data.csv': {'format': 'csv'}
+}
 
-    # if result is not None:
-    #     raise result
+def run_all_spiders():
+    process.crawl(spider1_instance)
+    process.crawl(spider2_instance)
+    process.crawl(spider4_instance)
+    process.crawl(spider5_instance)
+    process.crawl(spider6_instance)
 
-status = CrawlerProcess({
-    'USER_AGENT' : 'Mozilla/5.0',
-    'FEED_FORMAT' : 'csv',
-    'FEED_URI' : 'thedailyhold.csv',
-})
 
-status.crawl(NewsSpider1Spider)
 
-status = CrawlerProcess({
-    'USER_AGENT' : 'Mozilla/5.0',
-    'FEED_FORMAT' : 'csv',
-    'FEED_URI' : 'finbold.csv',
-})
-status.crawl(NewsSpider2Spider)
-
-status = CrawlerProcess({
-    'USER_AGENT' : 'Mozilla/5.0',
-    'FEED_FORMAT' : 'csv',
-    'FEED_URI' : 'coinedition.csv',
-})
-status.crawl(NewsSpider4Spider)
-
-status = CrawlerProcess({
-    'USER_AGENT' : 'Mozilla/5.0',
-    'FEED_FORMAT' : 'csv',
-    'FEED_URI' : 'utoday.csv',
-})
-status.crawl(NewsSpider5Spider)
-
-status = CrawlerProcess({
-    'USER_AGENT' : 'Mozilla/5.0',
-    'FEED_FORMAT' : 'csv',
-    'FEED_URI' : 'newsbtc.csv',
-})
-status.crawl(NewsSpider6Spider)
-
-status.start()
-status.stop()
+    process.start()
