@@ -28,6 +28,8 @@ def process_date(data_1):
         if i == 0 or data_1['date'][i] == "nan":
             pass
         else:
+            #--------------------------------------------
+            # Date Processing
             if "/" in data_1['date'][i]:
                 date_text_list = data_1['date'][i].split("/")
                 date_text = date_text_list[1]
@@ -46,6 +48,15 @@ def process_date(data_1):
                         new_date_data = data_1['date'][i].replace(key.title(), value)
                         print(new_date_data)
                         data_1['date'][i] = new_date_data
+            
+            #--------------------------------------------
+            # Image Processing
+            thumb_data = data_1['thumb'][i]
+            # print(thumb_data)
+            if ("w=" in thumb_data) and ("h=" in thumb_data) and ("crop=" in thumb_data):
+                new_thumb_data = thumb_data.split("?")[0]
+                # print(new_thumb_data)
+                data_1['thumb'][i] = new_thumb_data
                 
             
 
@@ -59,6 +70,11 @@ def remove_header(data_1):
             if "title" in data_1["title"][i]:
                 print(data_1["title"][i])
                 data_1.drop(["title"], inplace = True)
+
+
+# data = pd.read_csv("data_files/thedailyhodl.csv")
+# new_data = process_date(data)
+# new_data.to_csv("data_files/test_file.csv")
 
 
 # for file in row_data_files:

@@ -1,6 +1,9 @@
 import pandas as pd
 import streamlit as st
 from data_processing import remove_header
+from PIL import Image
+
+df_relative_path = "data_files/"
 
 st.set_page_config(layout="wide")
 
@@ -20,15 +23,15 @@ newsbtc = st.sidebar.checkbox("NEWS BTC", key=6, value=True)
 
 files = []
 if finbold:
-    files.append("clean_finbold.csv")
+    files.append(f"data_files/clean_finbold.csv")
 if the_daily_hodl:
-    files.append("clean_thedailyhold.csv")
+    files.append(f"data_files/clean_thedailyhodl.csv")
 if coin_edition:
-    files.append("clean_coinedition.csv")
+    files.append(f"data_files/clean_coinedition.csv")
 if u_today:
-    files.append("clean_utoday.csv")
+    files.append(f"data_files/clean_utoday.csv")
 if newsbtc:
-    files.append("clean_newsbtc.csv")
+    files.append(f"data_files/clean_newsbtc.csv")
 
 if len(files) == 0:
     st.write("#### <span style='color:red'>No website is selected.</span>", unsafe_allow_html=True)
@@ -38,14 +41,14 @@ else:
     for a in range(len(files)-1):
         final_data = pd.concat([final_data,pd.read_csv(files[a+1])])
 
-    final_data.to_csv("final_news_data.csv", mode="w")
+    final_data.to_csv(f"data_files/final_news_data.csv", mode="w")
 
 
 
 st.write("---")
 
 #for file in files:
-news_data = pd.read_csv("final_news_data.csv")
+news_data = pd.read_csv(f"{df_relative_path}final_news_data.csv")
 
 num_pages = st.sidebar.slider("Select Number of Articles:", 5, 10, len(news_data))
 
@@ -68,6 +71,8 @@ else:
             col2.write(f"By {news_data['author'][i]}")
             col2.write(f"{news_data['date'][i]}")
             col2.write(f"Read more at [{news_data['website_name'][i]}]({news_data['article_url'][i]})")
-
-            col1.image(news_data['thumb'][i],width=350)
+            # img = Image.open(news_data['thumb'][i])
+            # new_img = img.resize((300, 200))
+            # col1.image(new_img)
+            col1.image(news_data['thumb'][i])
             st.write("---")

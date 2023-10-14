@@ -12,7 +12,7 @@ class NewsSpider1Spider(scrapy.Spider):
     start_urls = ['https://dailyhodl.com/']
 
     custom_settings = {
-        'FEEDS': { 'thedailyhodl.csv': { 'format': 'csv',}}
+        'FEEDS': { 'data_files/thedailyhodl.csv': { 'format': 'csv',}}
         }
 
     def parse(self, response):
@@ -35,7 +35,7 @@ class NewsSpider2Spider(scrapy.Spider):
     start_urls = ['https://finbold.com/category/cryptocurrency-news/']
 
     custom_settings = {
-        'FEEDS': { 'finbold.csv': { 'format': 'csv',}}
+        'FEEDS': { 'data_files/finbold.csv': { 'format': 'csv',}}
         }
 
     def parse(self, response):
@@ -55,7 +55,7 @@ class NewsSpider2Spider(scrapy.Spider):
 
 
     def parse_article_page(self, response):
-        print("this function is entered")
+        # print("this function is entered")
 
         yield{
             "title" : response.css("h1.entry-title::text").get(),
@@ -73,7 +73,7 @@ class NewsSpider4Spider(scrapy.Spider):
     start_urls = ['http://coinedition.com/news/']
 
     custom_settings = {
-        'FEEDS': { 'coinedition.csv': { 'format': 'csv',}}
+        'FEEDS': { 'data_files/coinedition.csv': { 'format': 'csv',}}
         }
 
     def parse(self, response):
@@ -103,7 +103,7 @@ class NewsSpider5Spider(scrapy.Spider):
     start_urls = ['http://u.today/latest-cryptocurrency-news/']
 
     custom_settings = {
-        'FEEDS': { 'utoday.csv': { 'format': 'csv',}}
+        'FEEDS': { 'data_files/utoday.csv': { 'format': 'csv',}}
         }
 
     def parse(self, response):
@@ -133,7 +133,7 @@ class NewsSpider6Spider(scrapy.Spider):
     start_urls = ['https://www.newsbtc.com/news//']
 
     custom_settings = {
-        'FEEDS': { 'newsbtc.csv': { 'format': 'csv',}}
+        'FEEDS': { 'data_files/newsbtc.csv': { 'format': 'csv',}}
         }
 
     def parse(self, response):
@@ -158,9 +158,9 @@ spider6_instance = NewsSpider6Spider
 
 process = CrawlerProcess()
 
-FEEDS = {
-    'data.csv': {'format': 'csv'}
-}
+# FEEDS = {
+#     'data.csv': {'format': 'csv'}
+# }
 
 def run_all_spiders():
     process.crawl(spider1_instance)

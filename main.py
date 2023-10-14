@@ -1,13 +1,18 @@
-files = ["coinedition.csv","thedailyhodl.csv", "finbold.csv", "newsbtc.csv", "utoday"]
+df_relative_path = "data_files/"
+
+files = ["coinedition.csv","thedailyhodl.csv", "finbold.csv", "newsbtc.csv", "utoday.csv"]
+clear_files = []
+for file in files:
+    clear_files.append(f"clean_{file}")
+all_files = files + clear_files
 
 # Delete previous files
 import os
 from os.path import exists
 
-def delete_files():
-    for file in files:
-        if exists(file):
-            os.remove(file)
+for file in all_files:
+        if exists(f"{df_relative_path}{file}"):
+            os.remove(f"{df_relative_path}{file}")
 
 # Run Spiders
 from news_scrapper.spiders.all_news_spider import run_all_spiders
@@ -20,11 +25,16 @@ import pandas as pd
 #-----------------------------------------
 # Clean the data before saving it to the final file
 for file in files:
-    print(f"Now processing file: {file}")
-    data = pd.read_csv(file)
-    new_data = process_date(data).drop_duplicates(subset="title",keep="first", inplace=True) # Removes duplicate rows from dataframe
-    print(new_data)
-    new_data.to_csv(f"clean_{file}")
+    print(f"Now processing file: {file}") # When error is encounted, uncomment this to check in which website the issue has originated from
+    data = pd.read_csv(f"{df_relative_path}{file}")
+    print(f"{file} is read")
+    new_data = process_date(data) # Removes duplicate rows from dataframe
+    # print(new_data)
+    if new_data is None:
+         pass
+    else:
+        new_data.to_csv(f"{df_relative_path}clean_{file}")
+        # print(f"saving clean_{file}.csv at {df_relative_path}")
 
 #-----------------------------------------
 # Source file: news_display.py
@@ -33,5 +43,5 @@ import sys
 import streamlit.web.cli as stdcli
 
 if __name__ == '__main__':
-    sys.argv = ["streamlit", "run", "news_display.py"]
+    sys.argv = ["streamlit", "run", "News_Crunch_GUI.py"]
     sys.exit(stdcli.main())
