@@ -30,11 +30,15 @@ if u_today:
 if newsbtc:
     files.append("clean_newsbtc.csv")
 
-final_data = pd.read_csv(files[0])
-for a in range(len(files)-1):
-    final_data = pd.concat([final_data,pd.read_csv(files[a+1])])
+if len(files) == 0:
+    st.write("#### <span style='color:red'>No website is selected.</span>", unsafe_allow_html=True)
+    st.write("#### <span style='color:red'>Select at least one website display articles</span>", unsafe_allow_html=True)
+else:
+    final_data = pd.read_csv(files[0])
+    for a in range(len(files)-1):
+        final_data = pd.concat([final_data,pd.read_csv(files[a+1])])
 
-final_data.to_csv("final_news_data.csv", mode="w")
+    final_data.to_csv("final_news_data.csv", mode="w")
 
 
 
@@ -47,19 +51,23 @@ num_pages = st.sidebar.slider("Select Number of Articles:", 5, 10, len(news_data
 
 # -----------------------------------------
 # Main Page Display
-for i in range(num_pages):
-    if news_data['title'][i] == 'title':
-        pass
-    elif "https" not in news_data['thumb'][i]:
-        print("Invalid url from webpage, skipping this item") #Skipping bad data due inconsistent page structure of websites
-        pass
-    else:
-        col1, col2 = st.columns([0.35,0.65])
-        col2.write(f"#### {news_data['title'][i]}")
-        col2.write(f"###### {news_data['excerpt'][i]}", unsafe_allow_html=True)
-        col2.write(f"By {news_data['author'][i]}")
-        col2.write(f"{news_data['date'][i]}")
-        col2.write(f"Read more at [{news_data['website_name'][i]}]({news_data['article_url'][i]})")
 
-        col1.image(news_data['thumb'][i],width=350)
-        st.write("---")
+if len(files) == 0:
+    pass
+else:
+    for i in range(num_pages):
+        if news_data['title'][i] == 'title':
+            pass
+        elif "https" not in news_data['thumb'][i]:
+            print("Invalid url from webpage, skipping this item") #Skipping bad data due inconsistent page structure of websites
+            pass
+        else:
+            col1, col2 = st.columns([0.35,0.65])
+            col2.write(f"#### {news_data['title'][i]}")
+            col2.write(f"###### {news_data['excerpt'][i]}", unsafe_allow_html=True)
+            col2.write(f"By {news_data['author'][i]}")
+            col2.write(f"{news_data['date'][i]}")
+            col2.write(f"Read more at [{news_data['website_name'][i]}]({news_data['article_url'][i]})")
+
+            col1.image(news_data['thumb'][i],width=350)
+            st.write("---")
