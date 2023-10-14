@@ -1,4 +1,4 @@
-files = ["coinedition.csv","thedailyhodl.csv", "finbold.csv", "newsbtc.csv"]
+files = ["coinedition.csv","thedailyhodl.csv", "finbold.csv", "newsbtc.csv", "utoday"]
 
 # Delete previous files
 import os
@@ -22,7 +22,7 @@ import pandas as pd
 for file in files:
     print(f"Now processing file: {file}")
     data = pd.read_csv(file)
-    new_data = process_date(data)
+    new_data = process_date(data).drop_duplicates(subset="title",keep="first", inplace=True) # Removes duplicate rows from dataframe
     print(new_data)
     new_data.to_csv(f"clean_{file}")
 
