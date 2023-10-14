@@ -116,11 +116,13 @@ Follow the below instructions to run the project
 ## To Do
 
 - [ ] Resolve Major Bugs with the current Basic Version
-  - [ ] Run the app with the single script
+  - [X] Run the app with the single script
   - [ ] OpenSSL Error occuring sometimes
   - [ ] Clean Data before showing in GUI
     - [ ] Dates from all websites in same format
   - [ ] Inconsistent card size due to different size of thumbs and excerpts
+  - [ ] Test app on macOS
+
 
 See the [open issues](https://github.com/NiravJoshi33/news_crunch/issues) for a full list of proposed features (and known issues).
 
