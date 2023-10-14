@@ -1,4 +1,6 @@
 import pandas as pd
+from datetime import datetime, timedelta
+from icecream import ic
 
 global months_num
 global months_short
@@ -26,6 +28,7 @@ def process_date(data_1):
     for i in data_1.index:
         print(f"checking {data_1['date'][i]}")
         if i == 0 or data_1['date'][i] == "nan":
+            print("Invalid values, skipping")
             pass
         else:
             #--------------------------------------------
@@ -39,6 +42,22 @@ def process_date(data_1):
                         new_date_data = months_num[n-1]
                         data_1['date'][i] = new_date_data + " " + date_text + "," + year_text
             
+            #--------------------------------------------
+            # hours/days ago date data
+            elif "ago" in data_1['date'][i]:
+                current_datetime = datetime.now()
+                relative = data_1['date'][i]
+                value, unit, ago_str = relative.split()
+                value = int(value)
+                if unit == "hours":
+                    time_difference = timedelta(hours=value)
+                elif unit == "minutes":
+                    time_difference = timedelta(minutes=value)
+                elif unit == "days":
+                    time_difference = timedelta(days=value)
+                new_datetime = current_datetime - time_difference
+                data_1['date'][i] = new_datetime
+
             else:
             
                 for key, value in months_short.items():
@@ -52,14 +71,14 @@ def process_date(data_1):
             #--------------------------------------------
             # Image Processing
             thumb_data = data_1['thumb'][i]
-            # print(thumb_data)
-            if ("w=" in thumb_data) and ("h=" in thumb_data) and ("crop=" in thumb_data):
-                new_thumb_data = thumb_data.split("?")[0]
-                # print(new_thumb_data)
-                data_1['thumb'][i] = new_thumb_data
+            if isinstance(thumb_data, float):
+                pass
+            else:
+                if ("w=" in thumb_data) and ("h=" in thumb_data) and ("crop=" in thumb_data):
+                    new_thumb_data = thumb_data.split("?")[0]
+                    # print(new_thumb_data)
+                    data_1['thumb'][i] = new_thumb_data
                 
-            
-
     return data_1
 
 def remove_header(data_1):

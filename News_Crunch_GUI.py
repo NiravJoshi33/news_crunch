@@ -49,7 +49,7 @@ st.write("---")
 
 #for file in files:
 news_data = pd.read_csv(f"{df_relative_path}final_news_data.csv")
-
+print(news_data)
 num_pages = st.sidebar.slider("Select Number of Articles:", 5, 10, len(news_data))
 
 # -----------------------------------------
@@ -59,20 +59,22 @@ if len(files) == 0:
     pass
 else:
     for i in range(num_pages):
-        if news_data['title'][i] == 'title':
-            pass
-        elif "https" not in news_data['thumb'][i]:
-            print("Invalid url from webpage, skipping this item") #Skipping bad data due inconsistent page structure of websites
-            pass
+        if isinstance(news_data['thumb'][i], float):
+            thumb_img = "no_thumb_img.png"
         else:
-            col1, col2 = st.columns([0.35,0.65])
-            col2.write(f"#### {news_data['title'][i]}")
-            col2.write(f"###### {news_data['excerpt'][i]}", unsafe_allow_html=True)
-            col2.write(f"By {news_data['author'][i]}")
-            col2.write(f"{news_data['date'][i]}")
-            col2.write(f"Read more at [{news_data['website_name'][i]}]({news_data['article_url'][i]})")
-            # img = Image.open(news_data['thumb'][i])
-            # new_img = img.resize((300, 200))
-            # col1.image(new_img)
-            col1.image(news_data['thumb'][i])
-            st.write("---")
+            if "http" not in news_data['thumb'][i]:
+                thumb_img = "no_thumb_img.png"
+            else:
+                thumb_img = news_data['thumb'][i]
+         
+        col1, col2 = st.columns([0.35,0.65])
+        col2.write(f"#### {news_data['title'][i]}")
+        col2.write(f"###### {news_data['excerpt'][i]}", unsafe_allow_html=True)
+        col2.write(f"By {news_data['author'][i]}")
+        col2.write(f"{news_data['date'][i]}")
+        col2.write(f"Read more at [{news_data['website_name'][i]}]({news_data['article_url'][i]})")
+        # img = Image.open(news_data['thumb'][i])
+        # new_img = img.resize((300, 200))
+        # col1.image(new_img)
+        col1.image(thumb_img)
+        st.write("---")
