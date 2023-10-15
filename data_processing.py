@@ -1,6 +1,5 @@
 import pandas as pd
 import datetime as dt
-from icecream import ic
 
 global months_num
 global months_short
