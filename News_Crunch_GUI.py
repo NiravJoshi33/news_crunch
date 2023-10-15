@@ -1,9 +1,20 @@
 import pandas as pd
 import streamlit as st
+from PIL import Image
+import urllib.request
 
 df_relative_path = "data_files/"
 
-st.set_page_config(layout="wide")
+st.set_page_config(
+    page_title="News Crunch",
+    page_icon="news_icon.png",
+    layout="wide", 
+    initial_sidebar_state="collapsed",
+    menu_items={
+        "About": "https://github.com/NiravJoshi33/news_crunch",
+        "Report a bug": "https://github.com/NiravJoshi33/news_crunch/issues",
+    }
+    )
 
 st.image("nc_short_logo.png", width= 90)
 st.title("News Crunch - Crypto News")
@@ -68,11 +79,15 @@ if len(files) == 0:
 else:
     for i in range(num_pages):
         if isinstance(news_data['thumb'][i], float):
+            # thumb_img = Image.open("no_thumb_img.png")
             thumb_img = "no_thumb_img.png"
         else:
             if "http" not in news_data['thumb'][i]:
+                # thumb_img = Image.open("no_thumb_img.png")
                 thumb_img = "no_thumb_img.png"
             else:
+                # img = Image.open(urllib.request.urlopen(news_data['thumb'][i]))
+                # thumb_img = img
                 thumb_img = news_data['thumb'][i]
          
         col1, col2 = st.columns([0.35,0.65])
@@ -84,5 +99,7 @@ else:
         # img = Image.open(news_data['thumb'][i])
         # new_img = img.resize((300, 200))
         # col1.image(new_img)
+        col1.write(" ")
         col1.image(thumb_img)
+        # thumb_img.close()
         st.write("---")

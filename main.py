@@ -1,4 +1,3 @@
-from icecream import ic
 
 df_relative_path = "data_files/"
 
