@@ -1,9 +1,10 @@
 import pandas as pd
-from datetime import datetime, timedelta
+import datetime as dt
 from icecream import ic
 
 global months_num
 global months_short
+today_datetime = dt.datetime.now()
 
 months_short = {
     "jan ": "January ",
@@ -24,71 +25,46 @@ months_num = ["January", "February", "March", "April", "May", "June", "July", "A
 
 row_data_files = ["coinedition.csv", "finbold.csv", "newsbtc.csv", "utoday.csv"]
 
-def process_date(data_1):
-    for i in data_1.index:
-        print(f"checking {data_1['date'][i]}")
-        if i == 0 or data_1['date'][i] == "nan":
-            print("Invalid values, skipping")
-            pass
+def process_date(data):
+
+    for n in data.index:
+        title_data = data['title'][n]
+        date_data = data['date'][n]
+        thumb_data = data['thumb'][n]
+
+        if type(data) is None:
+            continue
         else:
-            #--------------------------------------------
-            # Date Processing
-            if "/" in data_1['date'][i]:
-                date_text_list = data_1['date'][i].split("/")
-                date_text = date_text_list[1]
-                year_text = date_text_list[2].split("-")[0]
-                for n in range(12):
-                    if n == int(date_text_list[0].split(",")[1]):
-                        new_date_data = months_num[n-1]
-                        data_1['date'][i] = new_date_data + " " + date_text + "," + year_text
-            
-            #--------------------------------------------
-            # hours/days ago date data
-            elif "ago" in data_1['date'][i]:
-                current_datetime = datetime.now()
-                relative = data_1['date'][i]
-                value, unit, ago_str = relative.split()
+            # remove leading whitespaces in text    
+            data['title'] = data.title.str.lstrip()
+            data['author'] = data.author.str.lstrip()
+
+            # Converting data like '2 hours ago' to datetime object 
+            if "ago" in date_data:
+                # print(f"This condition is entered")
+                value, unit, ago_str = date_data.split()
                 value = int(value)
-                if unit == "hours":
-                    time_difference = timedelta(hours=value)
-                elif unit == "minutes":
-                    time_difference = timedelta(minutes=value)
-                elif unit == "days":
-                    time_difference = timedelta(days=value)
-                new_datetime = current_datetime - time_difference
-                data_1['date'][i] = new_datetime
-
-            else:
-            
-                for key, value in months_short.items():
-                    if key in data_1["date"][i].lower():
-                        print(f"key: {key.title()}")
-                        print(f"corresponding text to change: {data_1['date'][i].lower()}")
-                        new_date_data = data_1['date'][i].replace(key.title(), value)
-                        print(new_date_data)
-                        data_1['date'][i] = new_date_data
-            
-            #--------------------------------------------
-            # Image Processing
-            thumb_data = data_1['thumb'][i]
-            if isinstance(thumb_data, float):
-                pass
-            else:
-                if ("w=" in thumb_data) and ("h=" in thumb_data) and ("crop=" in thumb_data):
-                    new_thumb_data = thumb_data.split("?")[0]
-                    # print(new_thumb_data)
-                    data_1['thumb'][i] = new_thumb_data
+                if "hour" in unit:
+                    diff = dt.timedelta(hours=value)
+                if "day" in unit:
+                    diff = dt.timedelta(days=value)
+                if "minute" in unit:
+                    diff = dt.timedelta(minutes=value)
                 
-    return data_1
+                article_datetime = today_datetime - diff
+                # print(article_datetime)
+                data["date"][n] = article_datetime
 
-def remove_header(data_1):
-    for i in data_1.index:
-        if i == 0:
-            pass
-        else:
-            if "title" in data_1["title"][i]:
-                print(data_1["title"][i])
-                data_1.drop(["title"], inplace = True)
+    
+    # print(data)
+
+    # Sorting data by time & date
+    # data.sort_values(by=['date'], ascending=False, inplace=True)
+    # print(data)
+    # data['display_date'] = data["date"].dt.strftime('%B %d %Y')
+                
+    return data
+
 
 
 # data = pd.read_csv("data_files/thedailyhodl.csv")

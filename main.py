@@ -27,10 +27,12 @@ import pandas as pd
 #-----------------------------------------
 # Clean the data before saving it to the final file
 for file in files:
-    print(f"Now processing file: {file}") # When error is encounted, uncomment this to check in which website the issue has originated from
+    # print(f"Now processing file: {file}") # When error is encounted, uncomment this to check in which website the issue has originated from
     data = pd.read_csv(f"{df_relative_path}{file}", skip_blank_lines = True)
-    print(f"{file} is read")
-    new_data = process_date(data) # Removes duplicate rows from dataframe
+    # print(f"{file} is read")
+    new_data = process_date(data) 
+    # print("***/nfollowing is the data/n***")
+    print(new_data)
     # print(new_data)
     if new_data is None:
          pass

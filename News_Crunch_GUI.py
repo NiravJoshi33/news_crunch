@@ -1,7 +1,5 @@
 import pandas as pd
 import streamlit as st
-from data_processing import remove_header
-from PIL import Image
 
 df_relative_path = "data_files/"
 
@@ -40,7 +38,17 @@ else:
     final_data = pd.read_csv(files[0])
     for a in range(len(files)-1):
         final_data = pd.concat([final_data,pd.read_csv(files[a+1])])
-
+    
+    # Sorting data by time & date
+    # Converting other general date format to pandas datetime object
+    final_data['date'] = pd.to_datetime(final_data['date'],format="mixed")
+    print("***Data before soring***")
+    print(final_data)
+    final_data.sort_values(by=['date'], ascending=False, inplace=True)
+    print("***Data after soring***")
+    print(final_data)
+    final_data['display_date'] = final_data["date"].dt.strftime('%B %d %Y')
+    print(final_data)
     final_data.to_csv(f"data_files/final_news_data.csv", mode="w")
 
 
@@ -71,7 +79,7 @@ else:
         col2.write(f"#### {news_data['title'][i]}")
         col2.write(f"###### {news_data['excerpt'][i]}", unsafe_allow_html=True)
         col2.write(f"By {news_data['author'][i]}")
-        col2.write(f"{news_data['date'][i]}")
+        col2.write(f"{news_data['display_date'][i]}")
         col2.write(f"Read more at [{news_data['website_name'][i]}]({news_data['article_url'][i]})")
         # img = Image.open(news_data['thumb'][i])
         # new_img = img.resize((300, 200))
