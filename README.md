@@ -14,7 +14,7 @@
     <a href="https://github.com/NiravJoshi33/news_crunch"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/NiravJoshi33/news_crunch">View Demo</a>
+    <a href="https://youtu.be/TkfpN3fg_HM">View Demo</a>
     ·
     <a href="https://github.com/NiravJoshi33/news_crunch/issues">Report Bug</a>
     ·
