@@ -117,11 +117,12 @@ Follow the below instructions to run the project
 
 - [ ] Resolve Major Bugs with the current Basic Version
   - [X] Run the app with the single script
-  - [ ] OpenSSL Error occuring sometimes
-  - [ ] Clean Data before showing in GUI
-    - [ ] Dates from all websites in same format
+  - [X] OpenSSL Error occuring sometimes
+  - [X] Clean Data before showing in GUI
+    - [X] Dates from all websites in same format
   - [ ] Inconsistent card size due to different size of thumbs and excerpts
-  - [ ] Test app on macOS
+- [ ] Test app on macOS
+- [ ] Data storage and access from an online database 
 
 
 See the [open issues](https://github.com/NiravJoshi33/news_crunch/issues) for a full list of proposed features (and known issues).
@@ -149,7 +150,7 @@ Don't forget to give the project a star! Thanks again!
 <!-- CONTACT -->
 ## Contact
 
-Your Name - Nirav Joshi \
+Nirav Joshi \
 Email - niravjoshi3000@gmail.com \
 Project Link: [https://github.com/NiravJoshi33/news_crunch](https://github.com/NiravJoshi33/news_crunch)
 
